@@ -1,7 +1,7 @@
 import * as XLSX from 'xlsx';
 import { parse } from 'path';
 
-type Product = Map<string, string>;
+export type Product = Map<string, string>;
 
 const parseFileToJsonArr: Function = (file: Buffer): JSON[] => {
   const sheet: XLSX.WorkSheet = XLSX.read(file, { type: 'buffer' }).Sheets
@@ -81,5 +81,5 @@ export default (iprod: Buffer, iprice: Buffer) => {
     'iprice'
   );
   const catalogMapArr: Product[] = combineJsonFiles(iprodMapArr, ipriceMapArr);
-  console.log(catalogMapArr);
+  return catalogMapArr;
 };
