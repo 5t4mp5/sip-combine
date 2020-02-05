@@ -1,0 +1,17 @@
+{
+  "rules": {
+    "no-constant-condition": true,
+    "typedef": [
+      true,
+      "call-signature",
+      "parameter",
+      "arrow-parameter",
+      "property-declaration",
+      "member-variable-declaration",
+      "object-destructuring",
+      "array-destructuring",
+      "variable-declaration"
+    ]
+  },
+  "rulesDirectory": ["node_modules/tslint-eslint-rules/dist/rules"]
+}
