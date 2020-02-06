@@ -1,6 +1,4 @@
 import * as XLSX from 'xlsx';
-import { parse } from 'path';
-import { json } from 'express';
 
 export type Product = Map<string, string>;
 
