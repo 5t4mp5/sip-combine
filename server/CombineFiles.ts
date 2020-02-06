@@ -1,7 +1,12 @@
 import * as XLSX from 'xlsx';
 import { parse } from 'path';
+import { json } from 'express';
 
 export type Product = Map<string, string>;
+
+interface JSON {
+  [key: string]: string;
+}
 
 const parseFileToJsonArr: Function = (file: Buffer): JSON[] => {
   const sheet: XLSX.WorkSheet = XLSX.read(file, { type: 'buffer' }).Sheets
@@ -9,7 +14,7 @@ const parseFileToJsonArr: Function = (file: Buffer): JSON[] => {
   return XLSX.utils.sheet_to_json(sheet);
 };
 
-const consolidateProductDesc = (prod: Product): Product => {
+const consolidateProductDesc: Function = (prod: Product): Product => {
   prod.set(
     'PRODDESC',
     `${prod.get('PRODDESC')} ${prod.get('PRODDESC2')} ${prod.get(
@@ -22,8 +27,8 @@ const consolidateProductDesc = (prod: Product): Product => {
   return prod;
 };
 
-const parseJsonToProductArr = (file: JSON[], type: string) => {
-  const skip: string[] = [
+const parseJsonToProductArr: Function = (file: JSON[], type: string) => {
+  const skip: any[] = [
     'STDPACK',
     'INCR_OF',
     'P_WWW',
@@ -43,7 +48,7 @@ const parseJsonToProductArr = (file: JSON[], type: string) => {
   ];
   return file.map(
     (record: JSON): Product => {
-      const map = new Map();
+      const map: Product = new Map();
       for (let key in record) {
         if (record.hasOwnProperty(key) && !skip.includes(key)) {
           map.set(key, record[key]);
