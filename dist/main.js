@@ -2,6 +2,19 @@ const iprodInput = document.getElementById('iprod');
 const ipriceInput = document.getElementById('iprice');
 const form = document.getElementById('upload-form');
 const resultsDiv = document.getElementById('results');
+const submitButton = document.getElementById('submit');
+
+//submit button will be disabled unless both the inputs are entered
+submitButton.disabled = true;
+
+const updateSubmitButtonOnChange = () => {
+  if (ipriceInput.files.length && iprodInput.files.length)
+    submitButton.disabled = false;
+  else submitButton.disabled = true;
+};
+
+ipriceInput.addEventListener('change', updateSubmitButtonOnChange);
+iprodInput.addEventListener('change', updateSubmitButtonOnChange);
 
 const makeDownloadButton = text => {
   const url = URL.createObjectURL(new Blob([text], { type: 'text/plain' }));
