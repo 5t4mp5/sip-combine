@@ -5,9 +5,8 @@ export default (catalog: Product[]): string => {
   firstRow.forEach((value: string, key: string) => headers.push(key));
   const body: string = catalog.reduce(
     (str: string, product: Product): string => {
-      let output: string = '';
-      product.forEach((value: string) => (output += `${value}\t`));
-      return str + output + '\n';
+      product.forEach((value: string) => (str += `${value}\t`));
+      return str + '\n';
     },
     ''
   );
