@@ -22,7 +22,7 @@ const makeDownloadButton = text => {
   downloadLink.id = 'download';
   downloadLink.href = url;
   downloadLink.download = 'catalog.txt';
-  downloadLink.innerHTML = 'DOWNLOAD CATALOG';
+  downloadLink.innerHTML = 'Download Combined Catalog';
   downloadLink.className = 'btn btn-primary';
   resultsDiv.className = '';
   resultsDiv.appendChild(downloadLink);
