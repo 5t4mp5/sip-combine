@@ -4,9 +4,9 @@ export default (catalog: Product[]): string => {
   const body: string = catalog.reduce(
     (str: string, product: Product): string => {
       product.forEach((value: string) => (str += `${value}\t`));
-      return str + '\n';
+      return str.trim() + '\n';
     },
     ''
   );
-  return `${headers.join('\t')}\n${body}`;
+  return `${headers.join('\t')}\n${body}`.trim();
 };
