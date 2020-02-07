@@ -8,7 +8,9 @@ export default (iprod: Product[], iprice: Product[]): Product[] => {
         price.get('MFGNAME') === prod.get('MFGNAME')
     );
     ['GSAPRICE', 'TEMPRICE'].forEach((header: string) =>
-      prod.set(header, found.get(header))
+      header === 'TEMPRICE'
+        ? prod.set(header, found.get(header) ? found.get(header) : '')
+        : prod.set(header, found.get(header))
     );
     return prod;
   });
