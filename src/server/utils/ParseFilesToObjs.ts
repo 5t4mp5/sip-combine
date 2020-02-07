@@ -1,10 +1,5 @@
 import * as XLSX from 'xlsx';
-
-export type Product = Map<string, string>;
-
-interface JSON {
-  [key: string]: string;
-}
+import { JSON, Product } from './InterfacesAndTypes';
 
 const parseFileToJsonArr: Function = (file: Buffer): JSON[] => {
   const sheet: XLSX.WorkSheet = XLSX.read(file, { type: 'buffer' }).Sheets
@@ -57,32 +52,22 @@ const parseJsonToProductArr: Function = (file: JSON[], type: string) => {
   );
 };
 
-const combineJsonFiles: Function = (
-  iprod: Product[],
-  iprice: Product[]
-): Product[] => {
-  return iprod.map((prod: Product) => {
-    const found: Product = iprice.find(
-      (price: Product) =>
-        price.get('MFGPART') === prod.get('MFGPART') &&
-        price.get('MFGNAME') === prod.get('MFGNAME')
-    );
-    ['GSAPRICE', 'TEMPRICE'].forEach((header: string) =>
-      prod.set(header, found.get(header))
-    );
-    return prod;
-  });
-};
-
-export default (iprod: Buffer, iprice: Buffer) => {
-  const iprodMapArr: Product[] = parseJsonToProductArr(
+const parseFiles: Function = (
+  files: Express.Multer.File[]
+): { iprod: Product[]; iprice: Product[] } => {
+  const iprod: any = files.find((file: any) => file.fieldname === 'IPROD')
+    .buffer;
+  const iprice: any = files.find((file: any) => file.fieldname === 'IPRICE')
+    .buffer;
+  const iprodMaps: Product[] = parseJsonToProductArr(
     parseFileToJsonArr(iprod),
     'iprod'
   );
-  const ipriceMapArr: Product[] = parseJsonToProductArr(
+  const ipriceMaps: Product[] = parseJsonToProductArr(
     parseFileToJsonArr(iprice),
     'iprice'
   );
-  const catalogMapArr: Product[] = combineJsonFiles(iprodMapArr, ipriceMapArr);
-  return catalogMapArr;
+  return { iprod: iprodMaps, iprice: ipriceMaps };
 };
+
+export default parseFiles;

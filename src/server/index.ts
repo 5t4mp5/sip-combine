@@ -4,8 +4,7 @@ import * as path from 'path';
 import * as multer from 'multer';
 const storage: multer.StorageEngine = multer.memoryStorage();
 const upload: any = multer({ storage: storage });
-import combineFiles from './CombineFiles';
-import createTextFile from './CreateTextFile';
+import createCatalog from './utils';
 
 const PORT: string = process.env.PORT || '1337';
 
@@ -22,11 +21,7 @@ app.post(
   upload.any(),
   (req: express.Request, res: express.Response) => {
     const files: Array<Express.Multer.File> = req.files as Express.Multer.File[];
-    const iprod: any = files.find((file: any) => file.fieldname === 'IPROD')
-      .buffer;
-    const iprice: any = files.find((file: any) => file.fieldname === 'IPRICE')
-      .buffer;
-    const catalog: string = createTextFile(combineFiles(iprod, iprice));
+    const catalog: string = createCatalog(files);
     res.contentType('text/plain');
     res.send(catalog);
   }

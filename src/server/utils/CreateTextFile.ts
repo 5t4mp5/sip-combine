@@ -1,4 +1,4 @@
-import { Product } from './CombineFiles';
+import { Product } from './InterfacesAndTypes';
 export default (catalog: Product[]): string => {
   const headers: string[] = [];
   const firstRow: Product = catalog[0];
