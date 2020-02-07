@@ -2,17 +2,20 @@
   "name": "sip-combine",
   "version": "1.0.0",
   "description": "Tool for combining IProd and IPrice SIP files for easy import into Quick Sales",
-  "main": "main.js",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/5t4mp5/sip-combine.git"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start:dev": "tsc-watch src/server/*.ts --outDir dist/server --onSuccess \"node ./dist/server/index.js\"",
-    "start": "tsc src/server/*.ts --outDir dist/server && node dist/server/index.js"
+    "start:dev": "tsc-watch --onSuccess \"node ./dist/server/index.js\"",
+    "start": "tsc && node dist/server/index.js"
   },
   "keywords": [],
-  "author": "",
+  "author": "Dave Siegel",
   "license": "ISC",
   "devDependencies": {
-    "nodemon": "^2.0.2",
     "tsc-watch": "^4.1.0"
   },
   "dependencies": {
