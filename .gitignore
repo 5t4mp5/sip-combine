@@ -2,3 +2,4 @@
 /TestData
 .DS_Store
 /dist/server/*
+test_data/

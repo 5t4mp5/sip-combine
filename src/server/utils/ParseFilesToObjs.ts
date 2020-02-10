@@ -7,18 +7,18 @@ const parseFileToJsonArr: Function = (file: Buffer): JSON[] => {
   return XLSX.utils.sheet_to_json(sheet);
 };
 
-const consolidateProductDesc: Function = (prod: Product): Product => {
-  prod.set(
-    'PRODDESC',
-    `${prod.get('PRODDESC')} ${prod.get('PRODDESC2')} ${prod.get(
-      'PRODDESC3'
-    )} ${prod.get('PRODDESC4')}`.trim()
-  );
-  prod.delete('PRODDESC2');
-  prod.delete('PRODDESC3');
-  prod.delete('PRODDESC4');
-  return prod;
-};
+// const consolidateProductDesc: Function = (prod: Product): Product => {
+//   prod.set(
+//     'PRODDESC',
+//     `${prod.get('PRODDESC')} ${prod.get('PRODDESC2')} ${prod.get(
+//       'PRODDESC3'
+//     )} ${prod.get('PRODDESC4')}`.trim()
+//   );
+//   prod.delete('PRODDESC2');
+//   prod.delete('PRODDESC3');
+//   prod.delete('PRODDESC4');
+//   return prod;
+// };
 
 const parseJsonToProductArr: Function = (file: JSON[], type: string) => {
   const skip: any[] = [
@@ -38,6 +38,10 @@ const parseJsonToProductArr: Function = (file: JSON[], type: string) => {
     'ZONE_NUM',
     'TPRSTART',
     'TPRSTOP',
+    'D_VUNIT',
+    'UNIT1',
+    'UNIT2',
+    'UNIT3',
   ];
   return file.map(
     (record: JSON): Product => {
@@ -47,7 +51,8 @@ const parseJsonToProductArr: Function = (file: JSON[], type: string) => {
           map.set(key, record[key]);
         }
       }
-      return type === 'iprod' ? consolidateProductDesc(map) : map;
+      // return type === 'iprod' ? consolidateProductDesc(map) : map;
+      return map;
     }
   );
 };
